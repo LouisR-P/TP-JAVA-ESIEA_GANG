@@ -18,9 +18,12 @@ public class MoveMarsRover implements MarsRover {
 
         final String separateur = ",";
 
-        // Suppression du préfixe et du suffixe de la chaîne de caractères entrée
+        // Suppression du préfixe et du suffixe de la chaîne de caractères saisie en entrée
         command = command.substring(1);
         command = command.substring(0,command.length()-1);
+
+        // Suppression des espaces de la chaîne de caractères saisie en entrée
+        command = command.replaceAll("\\s", "");
 
         String instructions[] = command.split(separateur);
 

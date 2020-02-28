@@ -50,7 +50,7 @@ class MoveMarsRoverTest {
     @Test
     void SuccessionMovingRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("[f,f,l,b]");
+        Position newPosition = marsRover.move("[f, f, l, b]");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 2, Direction.WEST));
     }
 }
