@@ -18,11 +18,16 @@ public class MoveMarsRover implements MarsRover {
         position = Position.of(xPosition, yPosition, direction);
 
 
-        // Suppression du préfixe et du suffixe de la chaîne de caractères saisie en entrée
-        command = command.substring(1);
-        command = command.substring(0,command.length()-1);
-        // Suppression des espaces de la chaîne de caractères saisie en entrée
-        command = command.replaceAll("\\s", "");
+        if (command.startsWith("[") && command.endsWith("]")){
+            // Suppression du préfixe et du suffixe de la chaîne de caractères saisie en entrée
+            command = command.substring(1);
+            command = command.substring(0,command.length()-1);
+            // Suppression des espaces de la chaîne de caractères saisie en entrée
+            command = command.replaceAll("\\s", "");
+        } else {
+            throw new InvalidCommandException("Commande " + command + " inconnue");
+        }
+
         // Définition du séparateur et séparation des instructions en une unique instruction
         final String separateur = ",";
         String instructions[] = command.split(separateur);
