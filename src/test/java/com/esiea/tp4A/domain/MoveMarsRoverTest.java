@@ -67,4 +67,11 @@ class MoveMarsRoverTest {
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 2, Direction.WEST));
     }
 
+    @Test
+    void MovingRoverOnSphericalMap() throws Exception {
+        MarsRover marsRover = new MoveMarsRover(-48, 50, Direction.NORTH);
+        Position newPosition = marsRover.instructions("fflfff");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(49, -48, Direction.WEST));
+    }
+
 }

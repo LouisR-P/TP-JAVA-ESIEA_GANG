@@ -44,16 +44,16 @@ public interface Position {
         public Position move(int xPosition, int yPosition, Direction direction) {
             switch (direction) {
                 case NORTH:
-                    yPosition = yPosition + 1;
+                    yPosition = forwardPosition(yPosition);
                     break;
                 case EAST:
-                    xPosition = xPosition + 1;
+                    xPosition = forwardPosition(xPosition);
                     break;
                 case SOUTH:
-                    yPosition = yPosition - 1;
+                    yPosition = backwardPosition(yPosition);
                     break;
                 case WEST:
-                    xPosition = xPosition - 1;
+                    xPosition = backwardPosition(xPosition);
                     break;
             }
             return Position.of(xPosition, yPosition, direction);
@@ -82,6 +82,26 @@ public interface Position {
         public int hashCode() {
             return Objects.hash(x, y, direction);
         }
+
+
+        public int forwardPosition(int coordinate) {
+            if (coordinate<50){
+                return coordinate+1;
+            } else {
+                return -49;
+            }
+        }
+
+        public int backwardPosition(int coordinate) {
+            if (coordinate>-49){
+                return coordinate-1;
+            } else {
+                return 50;
+            }
+        }
+
     }
+
+
 
 }
