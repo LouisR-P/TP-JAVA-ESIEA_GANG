@@ -7,7 +7,7 @@ public interface Position {
     int getX();
     int getY();
     Direction getDirection();
-    Position move(int x, int y, Direction direction);
+    Position movingPosition(int x, int y, Direction direction);
 
     static Position of(int x, int y, Direction direction) {
         return new FixedPosition(x, y, direction);
@@ -41,7 +41,7 @@ public interface Position {
         }
 
         @Override
-        public Position move(int xPosition, int yPosition, Direction direction) {
+        public Position movingPosition(int xPosition, int yPosition, Direction direction) {
             switch (direction) {
                 case NORTH:
                     yPosition = forwardPosition(yPosition);

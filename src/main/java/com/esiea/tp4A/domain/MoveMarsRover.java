@@ -9,7 +9,7 @@ public class MoveMarsRover implements MarsRover {
     }
 
     @Override
-    public Position instructions(String command) {
+    public Position move(String command) {
         Position pos = position;
         Direction direction = pos.getDirection();
         for (char instruction : (command.toLowerCase()).toCharArray()) {
@@ -19,9 +19,9 @@ public class MoveMarsRover implements MarsRover {
                 case 'r':
                     direction = direction.right(); break;
                 case 'f':
-                    pos = pos.move(pos.getX(), pos.getY(), direction); break;
+                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction); break;
                 case 'b':
-                    pos = pos.move(pos.getX(), pos.getY(), direction.getOppositeDirection()); break;
+                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction.getOppositeDirection()); break;
                 default:
                     throw new InvalidCommandException("Commande " + command + " inconnue");
             }
