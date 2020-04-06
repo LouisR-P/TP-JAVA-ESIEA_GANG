@@ -7,6 +7,7 @@ public interface Position {
     int getX();
     int getY();
     Direction getDirection();
+    Position move(int x, int y, Direction direction);
 
     static Position of(int x, int y, Direction direction) {
         return new FixedPosition(x, y, direction);
@@ -40,6 +41,25 @@ public interface Position {
         }
 
         @Override
+        public Position move(int xPosition, int yPosition, Direction direction) {
+            switch (direction) {
+                case NORTH:
+                    yPosition = yPosition + 1;
+                    break;
+                case EAST:
+                    xPosition = xPosition + 1;
+                    break;
+                case SOUTH:
+                    yPosition = yPosition - 1;
+                    break;
+                case WEST:
+                    xPosition = xPosition - 1;
+                    break;
+            }
+            return Position.of(xPosition, yPosition, direction);
+        }
+
+        @Override
         public String toString() {
             return "FixedPosition{" +
                 "x=" + x +
@@ -63,4 +83,5 @@ public interface Position {
             return Objects.hash(x, y, direction);
         }
     }
+
 }

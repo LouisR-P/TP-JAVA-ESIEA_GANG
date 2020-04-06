@@ -9,41 +9,23 @@ public class MoveMarsRover implements MarsRover {
     }
 
     @Override
-    public Position move(String command) {
-        int xPosition = position.getX();
-        int yPosition = position.getY();
-        Direction direction = position.getDirection();
-
-        command = command.toLowerCase(); // Sensibilité à la casse
-
-        for (int i = 0; i < command.length(); i++) {
-            if (command.charAt(i) == 'l') {
-                direction = direction.left();
-            }
-            else if (command.charAt(i) == 'r') {
-                direction = direction.right();
-            }
-            else if ((command.charAt(i) == 'f') || (command.charAt(i) == 'b')) {
-                switch (direction) {
-                    case NORTH:
-                        yPosition = (command.charAt(i) == 'f') ? yPosition + 1 : yPosition - 1;
-                        break;
-                    case EAST:
-                        xPosition = (command.charAt(i) == 'f') ? xPosition + 1 : xPosition - 1;
-                        break;
-                    case SOUTH:
-                        yPosition = (command.charAt(i) == 'f') ? yPosition - 1 : yPosition + 1;
-                        break;
-                    case WEST:
-                        xPosition = (command.charAt(i) == 'f') ? xPosition - 1 : xPosition + 1;
-                        break;
-                }
-            }
-            else {
-                throw new InvalidCommandException("Commande " + command + " inconnue");
+    public Position instructions(String command) {
+        Position pos = position;
+        Direction direction = pos.getDirection();
+        for (char instruction : (command.toLowerCase()).toCharArray()) {
+            switch (instruction) {
+                case 'l':
+                    direction = direction.left(); break;
+                case 'r':
+                    direction = direction.right(); break;
+                case 'f':
+                    pos = pos.move(pos.getX(), pos.getY(), direction); break;
+                case 'b':
+                    pos = pos.move(pos.getX(), pos.getY(), direction.getOppositeDirection()); break;
+                default:
+                    throw new InvalidCommandException("Commande " + command + " inconnue");
             }
         }
-        Position.FixedPosition fixedPosition = new Position.FixedPosition(xPosition, yPosition, direction);
-        return fixedPosition;
+        return new Position.FixedPosition(pos.getX(), pos.getY(), direction);
     }
 }

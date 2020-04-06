@@ -14,7 +14,7 @@ public interface MarsRover {
         return this;
     }
 
-    default Position move(String command) throws Exception {
+    default Position instructions(String command) throws Exception {
         return Position.of(0, 0, Direction.NORTH);
     }
 }

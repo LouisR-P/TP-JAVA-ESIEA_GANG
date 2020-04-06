@@ -7,49 +7,49 @@ class MoveMarsRoverTest {
     @Test
     void notMoving() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0,0, Direction.NORTH);
-        Position newPosition = marsRover.move("");
+        Position newPosition = marsRover.instructions("");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
     @Test
     void MovingForwardRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("f");
+        Position newPosition = marsRover.instructions("f");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 1, Direction.NORTH));
     }
 
     @Test
     void MovingBackwardRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("b");
+        Position newPosition = marsRover.instructions("b");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, -1, Direction.NORTH));
     }
 
     @Test
     void TurningRightRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("r");
+        Position newPosition = marsRover.instructions("r");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.EAST));
     }
 
     @Test
     void TurningLeftRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("l");
+        Position newPosition = marsRover.instructions("l");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.WEST));
     }
 
     @Test
     void complexMovesFromDifferentOrigin() throws Exception {
         MarsRover marsRover = new MoveMarsRover(4, 5, Direction.WEST);
-        Position newPosition = marsRover.move("ff");
+        Position newPosition = marsRover.instructions("ff");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(2, 5, Direction.WEST));
     }
 
     @Test
     void MajCommand() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("F");
+        Position newPosition = marsRover.instructions("F");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 1, Direction.NORTH));
     }
 
@@ -57,13 +57,13 @@ class MoveMarsRoverTest {
     void WrongCommand() {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
         Assertions.assertThatExceptionOfType(InvalidCommandException.class)
-            .isThrownBy(() -> marsRover.move("o"));
+            .isThrownBy(() -> marsRover.instructions("o"));
     }
 
     @Test
     void SuccessionMovingRover() throws Exception {
         MarsRover marsRover = new MoveMarsRover(0, 0, Direction.NORTH);
-        Position newPosition = marsRover.move("fflb");
+        Position newPosition = marsRover.instructions("fflb");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 2, Direction.WEST));
     }
 
