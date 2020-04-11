@@ -6,6 +6,8 @@ public interface PlanetMap {
 
     Set<Position> obstaclePositions();
 
+    void deleteObstacle(Position obstaclePosition);
+
     final class Map implements PlanetMap {
 
         private Set<Position> obstacles;
@@ -17,6 +19,11 @@ public interface PlanetMap {
         @Override
         public Set<Position> obstaclePositions() {
             return this.obstacles;
+        }
+
+        @Override
+        public void deleteObstacle(Position obstaclePosition) {
+            obstacles.removeIf(position -> position.getX() == obstaclePosition.getX() && position.getY() == obstaclePosition.getY());
         }
 
     }

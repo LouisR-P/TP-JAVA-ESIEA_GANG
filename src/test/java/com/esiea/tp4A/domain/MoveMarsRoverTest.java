@@ -8,7 +8,7 @@ import java.util.Set;
 
 class MoveMarsRoverTest {
 
-    PlanetMap planetMap;
+    private PlanetMap planetMap;
 
     @Test
     void notMoving() throws Exception {
@@ -88,6 +88,16 @@ class MoveMarsRoverTest {
         MarsRover marsRover = new MoveMarsRover(0,0,Direction.NORTH, planetMap);
         Position newPosition = marsRover.move("fflb");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 0, Direction.WEST));
+    }
+
+    @Test
+    void MovingRoverOWithObstaclesAndShootingWithLaserRangeEqualsTo2() throws Exception{
+        Set<Position> obstacles = new HashSet<>();
+        obstacles.add(Position.of(0,2,Direction.NORTH));
+        PlanetMap planetMap = new PlanetMap.Map(obstacles);
+        MarsRover marsRover = new MoveMarsRover(0,0,Direction.NORTH, planetMap);
+        Position newPosition = marsRover.move("sff");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 2, Direction.NORTH));
     }
 
 }
