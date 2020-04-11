@@ -16,7 +16,7 @@ public enum Direction {
 
     public Direction right() {
         int rightOrdinal = ordinal()+1;
-        if (rightOrdinal == 3){
+        if (rightOrdinal == 4){
             return NORTH;
         }
         else {
