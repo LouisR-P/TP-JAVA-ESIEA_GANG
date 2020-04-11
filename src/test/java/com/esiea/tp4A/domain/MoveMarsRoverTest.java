@@ -106,8 +106,8 @@ class MoveMarsRoverTest {
         PlanetMap planetMap = new PlanetMap.Map(obstacles);
         obstacles.add(Position.of(0,2,Direction.NORTH));
         MarsRover updateMarsRover = marsRover.updateMap(planetMap);
-        MarsRover newsMarsRover1 = updateMarsRover.configureLaserRange(2);
-        Position newPosition = newsMarsRover1.move("sff");
+        MarsRover newsMarsRover = updateMarsRover.configureLaserRange(2);
+        Position newPosition = newsMarsRover.move("sff");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 2, Direction.NORTH));
     }
 
