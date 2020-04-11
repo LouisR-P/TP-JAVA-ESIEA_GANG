@@ -7,7 +7,7 @@ public interface Position {
     int getX();
     int getY();
     Direction getDirection();
-    Position movingPosition(int x, int y, Direction direction);
+    Position movingPosition(int x, int y, Direction direction, PlanetMap planetMap);
 
     static Position of(int x, int y, Direction direction) {
         return new FixedPosition(x, y, direction);
@@ -41,7 +41,7 @@ public interface Position {
         }
 
         @Override
-        public Position movingPosition(int xPosition, int yPosition, Direction direction) {
+        public Position movingPosition(int xPosition, int yPosition, Direction direction, PlanetMap planetMap) {
             switch (direction) {
                 case NORTH:
                     yPosition = forwardPosition(yPosition);
@@ -56,7 +56,22 @@ public interface Position {
                     xPosition = backwardPosition(xPosition);
                     break;
             }
-            return Position.of(xPosition, yPosition, direction);
+            if (!containsObstacle(xPosition,yPosition,planetMap)){
+                return Position.of(xPosition, yPosition, direction);
+            } else {
+                return Position.of(getX(), getY(), getDirection());
+            }
+        }
+
+        private boolean containsObstacle(int xPosition, int yPosition, PlanetMap planetMap) {
+            if (!(planetMap == null)) {
+                for (Position obstacle : planetMap.obstaclePositions()) {
+                    if (obstacle.getX() == xPosition && obstacle.getY() == yPosition) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         @Override
@@ -83,25 +98,20 @@ public interface Position {
             return Objects.hash(x, y, direction);
         }
 
-
         public int forwardPosition(int coordinate) {
-            if (coordinate<50){
-                return coordinate+1;
+            if (coordinate < 50) {
+                return coordinate + 1;
             } else {
                 return -49;
             }
         }
 
         public int backwardPosition(int coordinate) {
-            if (coordinate>-49){
-                return coordinate-1;
+            if (coordinate > -49) {
+                return coordinate - 1;
             } else {
                 return 50;
             }
         }
-
     }
-
-
-
 }
