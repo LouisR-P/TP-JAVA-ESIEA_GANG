@@ -76,11 +76,8 @@ public interface Position {
 
         @Override
         public String toString() {
-            return "FixedPosition{" +
-                "x=" + x +
-                ", y=" + y +
-                ", direction=" + direction +
-                '}';
+            String toString = "FixedPosition{" + "x=" + x + ", y=" + y + ", direction=" + direction + '}';
+            return toString;
         }
 
         @Override
@@ -99,18 +96,20 @@ public interface Position {
         }
 
         public int forwardPosition(int coordinate) {
+            int minPosition = -49;
             if (coordinate < 50) {
                 return coordinate + 1;
             } else {
-                return -49;
+                return minPosition;
             }
         }
 
         public int backwardPosition(int coordinate) {
+            int maxPosition = 50;
             if (coordinate > -49) {
                 return coordinate - 1;
             } else {
-                return 50;
+                return maxPosition;
             }
         }
     }
