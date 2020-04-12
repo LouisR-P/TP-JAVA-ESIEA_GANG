@@ -4,7 +4,9 @@ import com.esiea.tp4A.domain.Position;
 
 import java.util.Set;
 
-public interface Game {
+public interface PlayerController {
+
+    PlayerController startNew(Game game, String playerName);
 
     // Connaître la position de son Rover
     Position roverPosition(String playerName);
@@ -21,7 +23,5 @@ public interface Game {
     // Connaître le statut de son personnage (mort ou vivant)
     Boolean alive();
 
-    // Ajouter un joueur dans la partie à l'aide du PlayerController
-    PlayerController addPlayer(String playerName);
 
 }
