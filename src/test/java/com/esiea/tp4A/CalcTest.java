@@ -17,4 +17,13 @@ class CalcTest {
     void add_cases(int a, int b, int expectedResult) {
         assertThat(calc.add(a, b)).isEqualTo(expectedResult);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 1, 1",
+        "4, 7, 28"
+    })
+    void mult_cases(int a, int b, int expectedResult) {
+        assertThat(calc.mult(a, b)).isEqualTo(expectedResult);
+    }
 }

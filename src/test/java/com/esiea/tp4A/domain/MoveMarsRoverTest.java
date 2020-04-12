@@ -105,6 +105,13 @@ class MoveMarsRoverTest {
     }
 
     @Test
+    void MovingRoverOnSphericalMapOnTheOtherEdge() throws Exception {
+        MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,-49,Direction.NORTH));
+        Position newPosition = marsRover.move("b");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 50, Direction.NORTH));
+    }
+
+    @Test
     void MovingRoverOnSphericalMapWithObstacles() throws Exception{
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         PlanetMap planetMap = new PlanetMap.Map(obstacles);

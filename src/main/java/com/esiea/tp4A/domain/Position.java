@@ -75,15 +75,6 @@ public interface Position {
         }
 
         @Override
-        public String toString() {
-            return "FixedPosition{" +
-                "x=" + x +
-                ", y=" + y +
-                ", direction=" + direction +
-                '}';
-        }
-
-        @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
