@@ -1,4 +1,4 @@
-package java.tp4AOlineGame;
+package com.esiea.tp4AOnlineGame;
 
 import com.esiea.tp4A.domain.Position;
 
@@ -9,7 +9,7 @@ public interface PlayerController {
     PlayerController startNew(Game game, String playerName);
 
     // Connaître la position de son Rover
-    Position roverPosition(String playerName);
+    Position roverPosition();
 
     // Connaître la position des obstacles et joueurs adverses dans un carré 30x30 autour du joueur
     Set<Position> radar(String playerName);

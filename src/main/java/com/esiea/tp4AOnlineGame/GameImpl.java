@@ -1,4 +1,4 @@
-package java.tp4AOlineGame;
+package com.esiea.tp4AOnlineGame;
 
 import com.esiea.tp4A.domain.Position;
 

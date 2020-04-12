@@ -1,4 +1,4 @@
-package java.tp4AOlineGame;
+package com.esiea.tp4AOnlineGame;
 
 import com.esiea.tp4A.domain.Position;
 
@@ -19,7 +19,7 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public Position roverPosition(String playerName) {
+    public Position roverPosition() {
         return game.roverPosition(this.playerName);
 
     }
