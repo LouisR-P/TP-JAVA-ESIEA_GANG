@@ -20,28 +20,30 @@ public class PlayerControllerImpl implements PlayerController {
 
     @Override
     public Position roverPosition() {
-        return game.roverPosition(this.playerName);
-
+        if (this.game == null){
+            return null;
+        }
+        return this.game.roverPosition(this.playerName);
     }
 
     @Override
     public Set<Position> radar(String playerName) {
-        return game.radar(this.playerName);
+        return this.game.radar(this.playerName);
     }
 
     @Override
     public int laserRange(String playerName) {
-        return game.laserRange(this.playerName);
+        return this.game.laserRange(this.playerName);
     }
 
     @Override
     public Position move(String playerName, String command) {
-        return game.move(this.playerName, command);
+        return this.game.move(this.playerName, command);
 
     }
 
     @Override
     public Boolean alive(String playerName) {
-        return game.alive(this.playerName);
+        return this.game.alive(this.playerName);
     }
 }
