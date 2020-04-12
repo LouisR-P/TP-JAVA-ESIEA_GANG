@@ -1,4 +1,4 @@
-package com.esiea.tp4AOlineGame;
+package java.tp4AOlineGame;
 
 import com.esiea.tp4A.domain.Position;
 
@@ -13,13 +13,13 @@ public interface Game {
     Set<Position> radar(String playerName);
 
     // Connaître la portée du laser
-    int laserRange();
+    int laserRange(String playerName);
 
     // se déplacer (+ tirer avec son laser -> command "s")
-    Position move(String command);
+    Position move(String playerName, String command);
 
     // Connaître le statut de son personnage (mort ou vivant)
-    Boolean alive();
+    Boolean alive(String playerName);
 
     // Ajouter un joueur dans la partie à l'aide du PlayerController
     PlayerController addPlayer(String playerName);
