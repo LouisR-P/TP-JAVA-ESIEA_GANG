@@ -12,16 +12,16 @@ public interface PlayerController {
     Position roverPosition();
 
     // Connaître la position des obstacles et joueurs adverses dans un carré 30x30 autour du joueur
-    Set<Position> radar(String playerName);
+//    Set<Position> radar(String playerName);
 
     // Connaître la portée du laser
-    int laserRange(String playerName);
+//    int laserRange(String playerName);
 
     // se déplacer (+ tirer avec son laser -> command "s")
-    Position move(String playerName, String command);
+//    Position move(String playerName, String command);
 
     // Connaître le statut de son personnage (mort ou vivant)
-    Boolean alive(String playerName);
+//    Boolean alive(String playerName);
 
 
 }

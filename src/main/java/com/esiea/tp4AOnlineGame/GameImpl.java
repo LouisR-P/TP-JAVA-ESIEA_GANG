@@ -11,25 +11,25 @@ public class GameImpl implements Game {
         return null;
     }
 
-    @Override
-    public Set<Position> radar(String playerName) {
-        return null;
-    }
-
-    @Override
-    public int laserRange(String playerName) {
-        return 0;
-    }
-
-    @Override
-    public Position move(String playerName, String command) {
-        return null;
-    }
-
-    @Override
-    public Boolean alive(String playerName) {
-        return null;
-    }
+//    @Override
+//    public Set<Position> radar(String playerName) {
+//        return null;
+//    }
+//
+//    @Override
+//    public int laserRange(String playerName) {
+//        return 0;
+//    }
+//
+//    @Override
+//    public Position move(String playerName, String command) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Boolean alive(String playerName) {
+//        return null;
+//    }
 
     @Override
     public PlayerController addPlayer(String playerName) {

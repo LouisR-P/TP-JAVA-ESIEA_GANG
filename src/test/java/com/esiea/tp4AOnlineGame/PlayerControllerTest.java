@@ -1,10 +1,8 @@
 package com.esiea.tp4AOnlineGame;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PlayerControllerTest {
 
