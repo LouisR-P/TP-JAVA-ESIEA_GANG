@@ -47,7 +47,7 @@ public class MoveMarsRover implements MarsRover {
                     this.laserShot();
                     break;
                 default:
-                    throw new InvalidCommandException("Commande " + command + " inconnue");
+                    return this.position;
             }
         }
         return new Position.FixedPosition(pos.getX(), pos.getY(), direction);

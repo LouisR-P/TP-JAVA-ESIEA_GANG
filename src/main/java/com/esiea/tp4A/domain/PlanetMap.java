@@ -10,7 +10,7 @@ public interface PlanetMap {
 
     final class Map implements PlanetMap {
 
-        private Set<Position> obstacles;
+        private final Set<Position> obstacles;
 
         public Map(Set<Position> obstacles) {
             this.obstacles = obstacles;

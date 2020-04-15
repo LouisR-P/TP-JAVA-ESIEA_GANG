@@ -14,105 +14,105 @@ class MoveMarsRoverTest {
     private Set<Position> obstacles = new HashSet<>();
 
     @Test
-    void notMoving() throws Exception {
+    void notMoving(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
     @Test
-    void MovingForwardRover() throws Exception {
+    void MovingForwardRover(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("f");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 1, Direction.NORTH));
     }
 
     @Test
-    void MovingForwardRoverGeneral() throws Exception {
+    void MovingForwardRoverGeneral(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("f");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 1, Direction.NORTH));
     }
 
     @Test
-    void MovingBackwardRover() throws Exception {
+    void MovingBackwardRover(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("b");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, -1, Direction.NORTH));
     }
 
     @Test
-    void TurningRightRover() throws Exception {
+    void TurningRightRover(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("r");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.EAST));
     }
 
     @Test
-    void TurningRightRoverFromWestDirection() throws Exception {
+    void TurningRightRoverFromWestDirection(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.WEST));
         Position newPosition = marsRover.move("r");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
     @Test
-    void TurningLeftRover() throws Exception {
+    void TurningLeftRover(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("l");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.WEST));
     }
 
     @Test
-    void TurningLeftRoverFromEastDirection() throws Exception {
+    void TurningLeftRoverFromEastDirection(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.EAST));
         Position newPosition = marsRover.move("l");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
     @Test
-    void complexMovesFromDifferentOrigin() throws Exception {
+    void complexMovesFromDifferentOrigin(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(4,5,Direction.WEST));
         Position newPosition = marsRover.move("ff");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(2, 5, Direction.WEST));
     }
 
     @Test
-    void MajCommand() throws Exception {
+    void MajCommand(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("F");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 1, Direction.NORTH));
     }
 
     @Test
-    void WrongCommand() {
+    void TestWrongCommand(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
-        Assertions.assertThatExceptionOfType(InvalidCommandException.class)
-            .isThrownBy(() -> marsRover.move("o"));
+        Position newPosition = marsRover.move("aff");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0,0,Direction.NORTH));
     }
 
     @Test
-    void SuccessionMovingRover() throws Exception {
+    void SuccessionMovingRover(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         Position newPosition = marsRover.move("fflb");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 2, Direction.WEST));
     }
 
     @Test
-    void MovingRoverOnSphericalMap() throws Exception {
+    void MovingRoverOnSphericalMap(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,50,Direction.NORTH));
         Position newPosition = marsRover.move("f");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, -49, Direction.NORTH));
     }
 
     @Test
-    void MovingRoverOnSphericalMapOnTheOtherEdge() throws Exception {
+    void MovingRoverOnSphericalMapOnTheOtherEdge(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,-49,Direction.NORTH));
         Position newPosition = marsRover.move("b");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 50, Direction.NORTH));
     }
 
     @Test
-    void MovingRoverOnSphericalMapWithObstacles() throws Exception{
+    void MovingRoverOnSphericalMapWithObstacles(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         PlanetMap planetMap = new PlanetMap.Map(obstacles);
         obstacles.add(Position.of(0,1,Direction.NORTH));
@@ -122,7 +122,7 @@ class MoveMarsRoverTest {
     }
 
     @Test
-    void MovingRoverWithObstaclesAndShootingWithLaserRangeEqualsTo2() throws Exception{
+    void MovingRoverWithObstaclesAndShootingWithLaserRangeEqualsTo2(){
         MarsRover marsRover = new MoveMarsRover(position, laserRange, planetMap).initialize(Position.of(0,0,Direction.NORTH));
         PlanetMap planetMap = new PlanetMap.Map(obstacles);
         obstacles.add(Position.of(0,2,Direction.NORTH));
