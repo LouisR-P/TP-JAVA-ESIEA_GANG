@@ -1,37 +1,39 @@
 package com.esiea.tp4A.domain;
 
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MoveMarsRover implements MarsRover {
 
-    private final Position position;
+    private final AtomicReference<Position> atomicReference;
     private final int laserRange;
     private final PlanetMap planetMap;
 
-    public MoveMarsRover(Position position, int laserRange, PlanetMap planetMap) {
-        this.position = position;
+    public MoveMarsRover(int laserRange, PlanetMap planetMap) {
         this.laserRange = laserRange;
         this.planetMap = planetMap;
+        this.atomicReference = new AtomicReference<>(Position.of(0,0,Direction.NORTH));
     }
 
     @Override
     public MarsRover initialize(Position position) {
-        return new MoveMarsRover(position, this.laserRange, planetMap);
+        this.atomicReference.getAndSet(position);
+        return new MoveMarsRover(this.laserRange, this.planetMap);
     }
 
     @Override
     public MarsRover updateMap(PlanetMap planetMap) {
-        return new MoveMarsRover(this.position, this.laserRange, planetMap);
+        return new MoveMarsRover(this.laserRange, planetMap);
     }
 
     @Override
     public MarsRover configureLaserRange(int range) {
-        return new MoveMarsRover(this.position, range, planetMap);
+        return new MoveMarsRover(range, planetMap);
     }
 
     @Override
     public Position move(String command) {
-        Position pos = position;
+        Position pos = atomicReference.get();
         Direction direction = pos.getDirection();
         for (char instruction : (command.toLowerCase()).toCharArray()) {
             switch (instruction) {
@@ -47,14 +49,14 @@ public class MoveMarsRover implements MarsRover {
                     this.laserShot();
                     break;
                 default:
-                    return this.position;
+                    return this.atomicReference.get();
             }
         }
         return new Position.FixedPosition(pos.getX(), pos.getY(), direction);
     }
 
     private Position laserShot() {
-        Position previousPosition = this.position;
+        Position previousPosition = this.atomicReference.get();
         Position tempPosition;
         for (int i=1; i<=laserRange; i++){
             tempPosition = this.move("f");
