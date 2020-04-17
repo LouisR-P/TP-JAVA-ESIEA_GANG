@@ -10,10 +10,9 @@ import java.util.Set;
 
 class MoveMarsRoverTest {
 
-    private int laserRange;
-    private PlanetMap planetMap;
     private Set<Position> obstacles = new HashSet<>();
-    private MarsRover marsRover = new MoveMarsRover(laserRange,planetMap);
+    private PlanetMap planetMap = new PlanetMap.Map(obstacles);
+    private MarsRover marsRover = new MoveMarsRover(planetMap);
 
     @ParameterizedTest
     @CsvSource({
@@ -127,22 +126,20 @@ class MoveMarsRoverTest {
     @Test
     void MovingRoverOnSphericalMapWithObstacles(){
         marsRover.initialize(Position.of(0, 0, Direction.NORTH));
-        PlanetMap planetMap = new PlanetMap.Map(obstacles);
         obstacles.add(Position.of(0,1,Direction.NORTH));
-        MarsRover newMarsRover = marsRover.updateMap(planetMap);
-        Position newPosition = newMarsRover.move("fflb");
+        marsRover.updateMap(planetMap);
+        Position newPosition = marsRover.move("fflb");
         Assertions.assertThat(newPosition).isEqualTo(Position.of(1, 0, Direction.WEST));
     }
 
     @Test
     void MovingRoverWithObstaclesAndShootingWithLaserRangeEqualsTo2(){
         marsRover.initialize(Position.of(0, 0, Direction.NORTH));
-        PlanetMap planetMap = new PlanetMap.Map(obstacles);
         obstacles.add(Position.of(0,2,Direction.NORTH));
-        MarsRover updateMarsRover = marsRover.updateMap(planetMap);
-        MarsRover newsMarsRover1 = updateMarsRover.configureLaserRange(2);
-        Position newPosition = newsMarsRover1.move("sff");
-        Assertions.assertThat(newPosition).isEqualTo(Position.of(0, 2, Direction.NORTH));
+        marsRover.updateMap(planetMap);
+        marsRover.configureLaserRange(2);
+        Position newPosition = marsRover.move("sff");
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0,2, Direction.NORTH));
     }
 
 }

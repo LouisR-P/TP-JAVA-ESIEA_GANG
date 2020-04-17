@@ -5,35 +5,36 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class MoveMarsRover implements MarsRover {
 
-    private final AtomicReference<Position> atomicReference;
-    private final int laserRange;
+    private final AtomicReference<Position> positionAtomicReference;
+    private final AtomicReference<Integer> laserRangeAtomicReference;
     private final PlanetMap planetMap;
 
-    public MoveMarsRover(int laserRange, PlanetMap planetMap) {
-        this.laserRange = laserRange;
+    public MoveMarsRover(PlanetMap planetMap) {
+        this.laserRangeAtomicReference = new AtomicReference<>(0);
         this.planetMap = planetMap;
-        this.atomicReference = new AtomicReference<>(Position.of(0,0,Direction.NORTH));
+        this.positionAtomicReference = new AtomicReference<>(Position.of(0,0,Direction.NORTH));
     }
 
     @Override
     public MarsRover initialize(Position position) {
-        this.atomicReference.getAndSet(position);
-        return new MoveMarsRover(this.laserRange, this.planetMap);
+        this.positionAtomicReference.getAndSet(position);
+        return new MoveMarsRover(this.planetMap);
     }
 
     @Override
     public MarsRover updateMap(PlanetMap planetMap) {
-        return new MoveMarsRover(this.laserRange, planetMap);
+        return new MoveMarsRover(planetMap);
     }
 
     @Override
     public MarsRover configureLaserRange(int range) {
-        return new MoveMarsRover(range, planetMap);
+        this.laserRangeAtomicReference.getAndSet(range);
+        return new MoveMarsRover(this.planetMap);
     }
 
     @Override
     public Position move(String command) {
-        Position pos = atomicReference.get();
+        Position pos = positionAtomicReference.get();
         Direction direction = pos.getDirection();
         for (char instruction : (command.toLowerCase()).toCharArray()) {
             switch (instruction) {
@@ -46,27 +47,26 @@ public class MoveMarsRover implements MarsRover {
                 case 'b':
                     pos = pos.movingPosition(pos.getX(), pos.getY(), direction.getOppositeDirection(), planetMap); break;
                 case 's':
-                    this.laserShot();
-                    break;
+                    this.laserShot(); break;
                 default:
-                    return this.atomicReference.get();
+                    return this.positionAtomicReference.get();
             }
-        }
-        return new Position.FixedPosition(pos.getX(), pos.getY(), direction);
+        } return new Position.FixedPosition(pos.getX(), pos.getY(), direction);
     }
 
     private Position laserShot() {
-        Position previousPosition = this.atomicReference.get();
+        Position previousPosition = this.positionAtomicReference.get();
         Position tempPosition;
-        for (int i=1; i<=laserRange; i++){
-            tempPosition = this.move("f");
+        String command = "f";
+        for (int i = 1; i<=laserRangeAtomicReference.get(); i++){
+            tempPosition = this.move(command);
             if(tempPosition.equals(previousPosition)){
                 for (Iterator<Position> iterator = this.planetMap.obstaclePositions().iterator(); iterator.hasNext();){
                     Position position = iterator.next();
                     this.planetMap.deleteObstacle(position);
-                }
-                break;
+                } break;
             } previousPosition = tempPosition;
+            command = command.concat("f");
         }
         return previousPosition;
     }

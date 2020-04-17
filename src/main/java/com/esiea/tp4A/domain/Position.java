@@ -44,19 +44,14 @@ public interface Position {
         public Position movingPosition(int xPosition, int yPosition, Direction direction, PlanetMap planetMap) {
             switch (direction) {
                 case NORTH:
-                    yPosition = forwardPosition(yPosition);
-                    break;
+                    yPosition = forwardPosition(yPosition); break;
                 case EAST:
-                    xPosition = forwardPosition(xPosition);
-                    break;
+                    xPosition = forwardPosition(xPosition); break;
                 case SOUTH:
-                    yPosition = backwardPosition(yPosition);
-                    break;
+                    yPosition = backwardPosition(yPosition); break;
                 case WEST:
-                    xPosition = backwardPosition(xPosition);
-                    break;
-            }
-            if (!containsObstacle(xPosition,yPosition,planetMap)){
+                    xPosition = backwardPosition(xPosition); break;
+            } if (!containsObstacle(xPosition,yPosition,planetMap)){
                 return Position.of(xPosition, yPosition, direction);
             } else {
                 return Position.of(getX(), getY(), getDirection());
@@ -70,8 +65,7 @@ public interface Position {
                         return true;
                     }
                 }
-            }
-            return false;
+            } return false;
         }
 
         @Override
