@@ -25,6 +25,16 @@ class MoveMarsRoverTest {
         Assertions.assertThat(newPosition).as("new position after receiving command '" + command + "'").isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "'f f', -2, -1, SOUTH"
+    })
+    void unknown_command_should_be_ignored(String command, int expectedX, int expectedY, Direction expectedDirection) {
+        marsRover.initialize(Position.of(-2, 1, Direction.SOUTH));
+        Position newPosition = marsRover.move(command);
+        Assertions.assertThat(newPosition).as("new position after receiving command '" + command + "'").isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+    }
+
     @Test
     void notMoving(){
         marsRover.initialize(Position.of(0, 0, Direction.NORTH));
@@ -99,7 +109,7 @@ class MoveMarsRoverTest {
     void TestWrongCommand(){
         marsRover.initialize(Position.of(0, 0, Direction.NORTH));
         Position newPosition = marsRover.move("aff");
-        Assertions.assertThat(newPosition).isEqualTo(Position.of(0,0,Direction.NORTH));
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(0,2,Direction.NORTH));
     }
 
     @Test

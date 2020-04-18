@@ -49,7 +49,7 @@ public class MoveMarsRover implements MarsRover {
                 case 's':
                     this.laserShot(); break;
                 default:
-                    return this.positionAtomicReference.get();
+                    break;
             }
         } return new Position.FixedPosition(pos.getX(), pos.getY(), direction);
     }
