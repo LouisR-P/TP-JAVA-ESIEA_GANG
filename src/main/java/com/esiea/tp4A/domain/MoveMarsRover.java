@@ -68,8 +68,7 @@ public class MoveMarsRover implements MarsRover {
                 } break;
             } previousPosition = tempPosition;
             command = command.concat("f");
-        }
-        return previousPosition;
+        } return previousPosition;
     }
 
 }
