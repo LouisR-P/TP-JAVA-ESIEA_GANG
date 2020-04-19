@@ -7,29 +7,30 @@ public class MoveMarsRover implements MarsRover {
 
     private final AtomicReference<Position> positionAtomicReference;
     private final AtomicReference<Integer> laserRangeAtomicReference;
-    private final PlanetMap planetMap;
+    private final AtomicReference<PlanetMap> planetMapAtomicReference;
 
-    public MoveMarsRover(PlanetMap planetMap) {
+    public MoveMarsRover() {
         this.laserRangeAtomicReference = new AtomicReference<>(0);
-        this.planetMap = planetMap;
+        this.planetMapAtomicReference = new AtomicReference<>(null);
         this.positionAtomicReference = new AtomicReference<>(Position.of(0,0,Direction.NORTH));
     }
 
     @Override
     public MarsRover initialize(Position position) {
         this.positionAtomicReference.getAndSet(position);
-        return new MoveMarsRover(this.planetMap);
+        return new MoveMarsRover();
     }
 
     @Override
     public MarsRover updateMap(PlanetMap planetMap) {
-        return new MoveMarsRover(planetMap);
+        this.planetMapAtomicReference.getAndSet(planetMap);
+        return new MoveMarsRover();
     }
 
     @Override
     public MarsRover configureLaserRange(int range) {
         this.laserRangeAtomicReference.getAndSet(range);
-        return new MoveMarsRover(this.planetMap);
+        return new MoveMarsRover();
     }
 
     @Override
@@ -43,9 +44,9 @@ public class MoveMarsRover implements MarsRover {
                 case 'r':
                     direction = direction.right(); break;
                 case 'f':
-                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction, planetMap); break;
+                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction, planetMapAtomicReference.get()); break;
                 case 'b':
-                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction.getOppositeDirection(), planetMap); break;
+                    pos = pos.movingPosition(pos.getX(), pos.getY(), direction.getOppositeDirection(), planetMapAtomicReference.get()); break;
                 case 's':
                     this.laserShot(); break;
                 default:
@@ -61,9 +62,9 @@ public class MoveMarsRover implements MarsRover {
         for (int i = 1; i<=laserRangeAtomicReference.get(); i++){
             tempPosition = this.move(command);
             if(tempPosition.equals(previousPosition)){
-                for (Iterator<Position> iterator = this.planetMap.obstaclePositions().iterator(); iterator.hasNext();){
+                for (Iterator<Position> iterator = this.planetMapAtomicReference.get().obstaclePositions().iterator(); iterator.hasNext();){
                     Position position = iterator.next();
-                    this.planetMap.deleteObstacle(position);
+                    this.planetMapAtomicReference.get().deleteObstacle(position);
                 } break;
             } previousPosition = tempPosition;
             command = command.concat("f");

@@ -12,7 +12,7 @@ class MoveMarsRoverTest {
 
     private Set<Position> obstacles = new HashSet<>();
     private PlanetMap planetMap = new PlanetMap.Map(obstacles);
-    private MarsRover marsRover = new MoveMarsRover(planetMap);
+    private MarsRover marsRover = new MoveMarsRover();
 
     @ParameterizedTest
     @CsvSource({
