@@ -64,7 +64,7 @@ public class MoveMarsRover implements MarsRover {
             if(tempPosition.equals(previousPosition)){
                 for (Iterator<Position> iterator = this.planetMapAtomicReference.get().obstaclePositions().iterator(); iterator.hasNext();){
                     Position position = iterator.next();
-                    this.planetMapAtomicReference.get().deleteObstacle(position);
+                    this.planetMapAtomicReference.get().obstaclePositions().removeIf(tempPos -> tempPos.getX() == position.getX() && tempPos.getY() == position.getY());
                 } break;
             } previousPosition = tempPosition;
             command = command.concat("f");
